@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue学习</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>插值</h2>
+        <div v-once>Message:{{message}}</div>
+        <div >count:{{count+12}}</div>
+        <div @mouseover="disToggle">Message:{{message}}</div>
+        <button :disabled="isDisabled" >按钮</button>
+    </div>
+</body>
+<script>
+    /* 
+    v-once指令只会更新一次,之后的值更新也不会刷新
+    双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html 指令
+    :disabled="isDisabled" isDisabled转换为布尔,null undefined false都会转为false
+    # 可以在语句中使用js表达式
+     */
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: '消息',
+            count:15,
+            isDisabled:false
+        },
+        methods: {
+            disToggle:function(){
+                console.log(1);
+            }
+        }
+    })
+
+
+
+</script>
+
+</html>

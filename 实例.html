@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue学习</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>创建一个 Vue 实例</h2>
+        <p>所有的Vue组件都是Vue实例，并且接受相同的选项对象</p>
+        <h2>数据和方法</h2>
+        <h2>实例生命周期钩子</h2>
+        <h2>生命周期图示</h2>
+    </div>
+</body>
+<script>
+    // 创建一个实例
+    var data = { a: 1 }
+    Object.freeze(data)
+    /*
+    当实例被创建时data中存在的属性才是响应式的,如果需要的话就要先在data属性中设置空值 
+    使用Object.freeze()冻结,这样会组织修改现在有的属性
+    app.$data data的那个对象
+    app.$el 获取的元素
+    app.$watch(),是一个方法
+    生命周期钩子 created mounted updated destroyed,但是请不要使用箭头函数,箭头函数和父级上下文绑定在一起,this会改变
+    */
+    var app = new Vue({
+        el: '#app',
+        data:{
+            text:'',
+            value:data
+        }
+    })
+    
+    
+
+</script>
+
+</html>
