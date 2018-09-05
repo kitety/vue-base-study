@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue学习</title>
+  <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h2>计算属性</h2>
+    <p> Original messagee:{{message}}</p>
+    <p> Computed Reversed messagee:{{reverseMessage}}</p>
+  </div>
+</body>
+<script>
+  var app = new Vue({
+    el:'#app',
+    data:{
+      message:'Hello'
+    },
+    computed:{
+      // 计算属性的getter
+      reverseMessage:function (){
+        // this指向app实例
+        return this.message.split('').reverse().join('')
+      }
+    }
+  })
+</script>
+
+</html>

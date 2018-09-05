@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>vue学习</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
 </head>
 
 <body>
@@ -15,6 +15,13 @@
         <div >count:{{count+12}}</div>
         <div @mouseover="disToggle">Message:{{message}}</div>
         <button :disabled="isDisabled" >按钮</button>
+        <h2>指令</h2>
+        <p v-if="seen">现在你看到我了</p>
+        <a v-bind:href="url">...</a>
+        <a :href="url">...</a>
+        <a v-on:click="doSomething">...</a>
+        <a @click="doSomething">...</a>
+        <form v-on:submit.prevent="Submit">...</form>
     </div>
 </body>
 <script>
