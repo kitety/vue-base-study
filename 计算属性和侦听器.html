@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>vue学习</title>
   <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 </head>
 
 <body>
@@ -22,6 +24,11 @@
     <div id="id1">
       {{fullName}}
     </div>
+    <h2>侦听器</h2>
+    <div>
+      <p>Ask a question</p><input v-model="question">
+      <p>{{answer}}</p>
+    </div>
   </div>
 </body>
 <script>
@@ -37,7 +44,9 @@
       message: 'Hello',
       firstName: 'Foo',
       lastName: 'Bar',
-      fullName: 'Foo Bar'
+      fullName: 'Foo Bar',
+      answer: 'I can give you answer!',
+      question: ''
     },
     computed: {
       // getter
@@ -65,6 +74,19 @@
     methods: {
       reverseMessage: function () {
         return this.message.split('').reverse().join('')
+      },
+      getAnswer: function () {
+        if (this.question.indexOf('?') === -1) {
+          this.answer = 'Questions usually contain a question mark. ;-)'
+          return;
+        }
+        this.answer='Thinking...'
+        var vm=this
+        axios.get('https://yesno.wtf/api').then((res)=>{
+         vm.answer = _.capitalize(response.data.answer)
+        }).catch((error)=>{
+          vm.answer = 'Error! Could not reach the API. ' + error
+        })
       }
     },
     watch: {
@@ -73,7 +95,15 @@
       },
       lastName: function (val) {
         this.FullName = this.firstName + ' ' + val
+      },
+      question: function (newQ, oldQ) {
+        this.answer = 'Waiting for you typeing...'
+        this.debouncedGetAnswer()
       }
+    },
+    created: function () {
+      // 创建就开始创建函数
+      this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
     }
   })
 </script>
