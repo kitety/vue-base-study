@@ -10,15 +10,62 @@
 
 <body>
   <div id="app">
-    <div :classs="{active:isActive}"></div>
+    <h1>绑定 HTML Class</h1>
+    <h2>对象语法</h2>
+    <div :class="{active:isActive}" class="cool"></div>
+    <div :class="classObj" class="cool"></div>
+    <div :class="classObjComputed"></div>
+    <h2>数组语法</h2>
+    <div :class="[activeClass,errorClass]"></div>
+    <!-- 三元表达式 -->
+    <div :class="[isActive?activeClass:'',errorClass]"></div>
+    <h2>组件之上</h2>
+    <my-component class=" boo"></my-component>
+    <my-component :class="{active:isActive}"></my-component>
+    <h1>绑定内联样式</h1>
+    <h2>对象语法</h2>
+    <div :style="{color:activeColor,fontSize:fontSize+'px'}">test text</div>
+    <div :style="styleObj">test text by styleObj</div>
+    <h2>数组语法</h2>
+    <div :style="[baseStyle,overridingStyles]"></div>
+    <h2>vue自动添加前缀</h2>
+    <h2>多重值</h2>
+    <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+
+
   </div>
 </body>
 <script>
+  Vue.component('my-component', {
+    template: '<p class="foo">Hi</p>'
+  })
   var app = new Vue({
     el: '#app',
     data: {
+      activeColor: 'red',
+      fontSize: 15,
+      isActive: true,
+      classObj: {
+        active: true,
+        'text-danger': false
+      },
+      activeClass: 'active',
+      errorClass: 'text-danger',
+      styleObj: {
+        color: 'green',
+        fontSize: '32px'
+      }
+    },
+    computed: {
+      classObjComputed: function () {
+        return {
+          active: this.isActive && !this.error,
+          'text-danger': this.error && this.error.type === 'fatal'
+        }
+      }
     }
   })
+
 </script>
 
 </html>
