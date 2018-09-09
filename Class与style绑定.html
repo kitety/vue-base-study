@@ -27,12 +27,10 @@
     <div :style="{color:activeColor,fontSize:fontSize+'px'}">test text</div>
     <div :style="styleObj">test text by styleObj</div>
     <h2>数组语法</h2>
-    <div :style="[baseStyle,overridingStyles]"></div>
+    <div :style="[baseStyles,overridingStyles]"></div>
     <h2>vue自动添加前缀</h2>
     <h2>多重值</h2>
     <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
-
-
   </div>
 </body>
 <script>
@@ -54,7 +52,9 @@
       styleObj: {
         color: 'green',
         fontSize: '32px'
-      }
+      },
+      baseStyles: [],
+      overridingStyles: []
     },
     computed: {
       classObjComputed: function () {
