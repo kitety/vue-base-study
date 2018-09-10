@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <div id="app">
+  <h5 id="app">
     <h1>列表渲染</h1>
     <h2>用 v-for 把一个数组对应为一组元素</h2>
     <div>
@@ -29,9 +29,21 @@
     <div>
       <li v-for="(value,key) in object">{{key}}:{{value}}</li>
     </div>
-
-
-  </div>
+    <h2>数组更新检测</h2>
+    <h5>变异方法</h5>
+    <div>这些方法触发:push,pop,shift,unshift,splice,sort,reverse</div>
+    <h2>非变异方法</h2>
+    <div>变异方法改变原数组,非变异不会.对于返回一个数组的方法就用一个值接收</div>
+    <h5>以下不会触发:利用索引值修改属性,修改数组长度</h5>
+    <h2>解决办法(app为vue实例)</h2>
+    <div>针对索引值修改:</br>
+      1.Vue.set(app.items,indexofItem,newValue)</br>
+      2.app.items.splice(app.items,1,newValue)
+    </div>
+    <div>针对数组长度修改:</br>
+      1.app.items.splice(newLength)
+    </div>
+    </div>
 </body>
 <script>
   var app = new Vue({
