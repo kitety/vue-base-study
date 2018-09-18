@@ -4,18 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>vue学习</title>
+    <title>监听事件</title>
     <script src="../src/vue.min.js"></script>
 </head>
 
 <body>
     <div id="app">
-        <h2>监听事件</h2>
-        <button v-on:click="counter+=1">Add 1</button>
+        <h2>监听事件(全console)</h2>
+        <button v-on:click="counter+=1">...Add 1...</button>
         <p>The button has been clicked {{counter}} times</p>
         <h2>事件处理方法</h2>
-        <button v-on:click="greet">Click Me!</button>
+        <button v-on:click="greet">...Click Me!...</button>
         <h2>内联处理器中的方法</h2>
+        <button v-on:click="say('hi')">...say hi...</button>
+        <h4>访问原生dom事件--$event</h4>
+        <button @click="warn('原生dom',$event)">...dom事件...</button>
+        <h2>事件修饰符</h2>
+        <ul>
+            <li>.stop</li>
+            <li>.prevent</li>
+            <li>.capture</li>
+            <li>.self</li>
+            <li>.once</li>
+            <li>.passive</li>
+        </ul>
+        <p v-on:click.stop="doThis">...组织事件传播...</p>
+        <p v-on:submit.prevent="doThis">...提交事件不再重载页面...</p>
+        <p v-on:click.stop.prevent="doThis">...修饰符可以串联...</p>
+        <p v-on:submit.prevent>...只有修饰符...</p>
+        <em>添加事件监听器时使用事件捕获模式</em>
+        <em>即元素自身触发的时间先在此处理,然后再交由内部元素进行处理</em>
+        <p v-on:click.capture="doThis">...click me...</p>
+        <em>只在event.target是当前元素的时触发函数</em>
+        <em>即事件不是从你内部函数触发的</em>
+        <p v-on:click.self="doThis">...click me...</p>
+        <em>事件只会触发一次</em>
+        <p v-on:click.once="doThis">...事件触发一次...</p>
+        <em>passive事件立即出发,不等待对应事件完成</em>
+        <p v-on:scroll="doThis">passive</p>
+        <h2>按键修饰符</h2>
+        <ul>别名
+            <li>.enter</li>
+            <li>.tab</li>
+            <li>.delete (捕获“删除”和“退格”键)</li>
+            <li>.esc</li>
+            <li>.space</li>
+            <li>.up</li>
+            <li>.down</li>
+            <li>.left</li>
+            <li>.right</li>
+            <li>.ctrl</li>
+            <li>.alt</li>
+            <li>.shift</li>
+            <li>.meta</li>
+            <li>.exact</li>
+            <li>鼠标:.left</li>
+            <li>鼠标:.right</li>
+            <li>鼠标:.middle</li>
+        </ul>
+        <em>三种常用方法</em><br>
+        <input v-on:keyup.13="submit"><br>
+        <input v-on:keyup.enter="submit"><br>
+        <input @keyup.enter="submit"><br>
+        <em>shift+单击</em><br>
+        <input @click.shift="submit"><br>
+        <em>.exact精准控制组合键</em>
+        <p @click.ctrl="doThis">alt,shift一同按下也会触发</p>
+        <p @click.ctrl.exact="doThis">只有ctrl被按下才触发</p>
+        <p @click.exact="doThis">无任何修饰按键按下触发</p>
+
     </div>
 </body>
 <script>
@@ -23,12 +80,25 @@
         el: '#app',
         data: {
             counter: 0,
-            name:'Vue.js'
+            name: 'Vue.js'
         },
         methods: {
             greet: function (event) {
                 // 这里的this指向vue实例
                 console.log(this.name);
+            },
+            say: function (msg) {
+                // 在行内传参数
+                console.log(msg);
+            },
+            warn: function (msg, event) {
+                console.log(msg, event);
+            },
+            doThis: function () {
+                console.log(1212);
+            },
+            submit:function(){
+                console.log('submit');
             }
         }
 
