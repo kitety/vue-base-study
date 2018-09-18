@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue学习</title>
+    <script src="../src/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>监听事件</h2>
+        <button v-on:click="counter+=1">Add 1</button>
+        <p>The button has been clicked {{counter}} times</p>
+        <h2>事件处理方法</h2>
+        <button v-on:click="greet">Click Me!</button>
+        <h2>内联处理器中的方法</h2>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            name:'Vue.js'
+        },
+        methods: {
+            greet: function (event) {
+                // 这里的this指向vue实例
+                console.log(this.name);
+            }
+        }
+
+    })
+
+</script>
+
+</html>
