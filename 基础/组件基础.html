@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件基础</title>
+    <script src="../src/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button-counter title="1"></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <hr>
+        <div :style="{fontSize:postFontSize+'em'}">
+            <blog-post v-for="post in posts" :key="post.id" :post="post" v-on:enlarge-text="onEnlargeText">
+            </blog-post>
+        </div>
+        <div>
+            <custom-input v-model="searchText"></custom-input>
+        </div>
+        <div>
+            <alert-box>1212</alert-box>
+        </div>
+    </div>
+</body>
+<script>
+    // 全局注册
+    Vue.component('button-counter', {
+        // 与 new Vue 接收相同的选项
+        // 每个的data是独立的
+        // 必须是函数l:每个实例可以维护一份被返回对象的独立的拷贝,不然的话变化一个就会影响他们全部
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.'
+    })
+    Vue.component('blog-post', {
+        props: ['post'],
+        template: `
+            <div class="blog-post">
+                <h3>{{post.title}}</h3>
+                <button @click="$emit('enlarge-text',0.1)">Enlarge text</button>
+                <div v-html="post.content"></div>
+            </div>
+        `
+    })
+    Vue.component('custom-input', {
+        props: ['value'],
+        template: `
+            <input
+                :value="value"
+                @input="$emit('input',$event.target.value)"
+            >
+        `
+    })
+    Vue.component('alert-box',{
+        template:`
+            <div class="demo-alert-box"> 
+                <strong>Error!</strong>
+                <slot></slot>
+            </div>
+        `
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+            posts: [
+                { id: 1, title: 'My journey with Vue', content: 1 },
+                { id: 2, title: 'Blogging with Vue', content: 12 },
+                { id: 3, title: 'Why Vue is so fun', content: 123 }
+            ],
+            postFontSize: 1, 
+            searchText:''
+        },
+        methods: {
+            onEnlargeText: function (enlargeAmount) {
+                this.postFontSize += enlargeAmount
+            }
+        }
+    })
+</script>
+
+</html>
