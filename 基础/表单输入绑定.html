@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单输入绑定</title>
+    <script src="../src/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h3>v-model绑定</h3>
+        <div>
+            <input v-model="message" placeholder=" edit me">
+            <p>{{message}}</p>
+        </div>
+        <h5>多行文本</h5>
+        <div>
+            <!-- 在textarea插值不会生效 应该用v-model -->
+            <textarea v-model="message2" placeholder=" edit me"></textarea>
+            <p>{{message2}}</p>
+        </div>
+        <h3>复选框</h3>
+        <div>
+            <input type="checkbox" id="checkbox" v-model="checked">
+            <label for="checkbox">{{checked}}</label>
+        </div>
+        <hr>
+        <div>
+            <!-- 自动转换为数组 -->
+            <input type="checkbox" id="Jack" v-model="checkedName" value="Jack">
+            <label for="Jack">John</label>
+            <input type="checkbox" id="John" v-model="checkedName" value="John">
+            <label for="John">John</label>
+            <input type="checkbox" id="mike" v-model="checkedName" value="mike">
+            <label for="mike">mike</label>
+            <br>
+            <span>Checked name:{{checkedName}}</span>
+        </div>
+        <h3>单选框</h3>
+        <div>
+            <!-- 会自动识别类型 -->
+            <input type="radio" id="one" value="one" v-model="picked">
+            <label for="one">one</label>
+            <input type="radio" id="two" value="two" v-model="picked">
+            <label for="two">two</label>
+            <br>
+            <span>Picked:{{picked}}</span>
+        </div>
+        <h3>选择框</h3>
+        <div>
+            <select v-model="selected">
+                <option disabled value="">请选择</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+            <span>Selected:{{selected}}</span>
+        </div>
+        <hr>
+        <!-- 多选绑定到一个数组 -->
+        <div>
+            <select v-model="selected1" multiple style="width:50px;">
+                <option disabled value="">请选择</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+            <span>Selected:{{selected1}}</span>
+        </div>
+        <hr>
+        <!-- v-for渲染动态页面 -->
+        <div>
+            <select v-model="selected3">
+                <option v-for="option in options" :value="option.value">{{option.text}}</option>
+            </select>
+            <span>Selected:{{selected3}}</span>
+        </div>
+        <h3>值绑定:https://cn.vuejs.org/v2/guide/forms.html#值绑定</h3>
+        <!-- https://cn.vuejs.org/v2/guide/forms.html#值绑定 -->
+        <h3>修饰符:https://cn.vuejs.org/v2/guide/forms.html#修饰符</h3>
+
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: '',
+            message2: '',
+            picked: '',
+            selected: '',
+            selected3: 'A',
+            selected1: [],
+            checkedName: [],
+            options: [
+                { text: 'One', value: 'A' },
+                { text: 'Two', value: 'B' },
+                { text: 'Three', value: 'C' }
+            ],
+            checked: false
+        }
+    })
+</script>
+
+</html>
